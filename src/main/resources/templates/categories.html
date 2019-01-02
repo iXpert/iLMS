@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap and Thymeleaf HTML Demo</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header" />
+
+<div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
+
+    <h2>Categories Page</h2>
+</div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>
