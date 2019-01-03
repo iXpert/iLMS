@@ -9,7 +9,28 @@
 
 <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
 
-    <h2>New Author Page</h2>
+    <!-- the following 3 empty paragraphs are to put some space between the navigation bar and the top of the form -->
+    <p/>
+    <p/>
+    <p/>
+
+    <h2>New Author Entry For</h2>
+    <form action="#">
+        <div class="form-group">
+            <label for="fName">First Name:</label>
+            <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="fName">
+        </div>
+        <div class="form-group">
+            <label for="lName">Last Name:</label>
+            <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lName">
+        </div>
+        <div class="form-group">    <!-- change this to a drop down list -->
+            <label for="nationality">Nationality:</label>
+            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality" name="nationality">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 </div>
 
 </div>
