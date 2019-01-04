@@ -3,6 +3,7 @@
     <div th:fragment="header-css">
         <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
         <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="webjars/popper.js/1.14.3/umd/popper.min.js"></script>
         <script type="text/javascript" src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     </div>
 </head>
@@ -20,7 +21,7 @@
 
             <!-- Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarBooks" data-toggle="dropdown">
                     Books
                 </a>
                 <div class="dropdown-menu">
@@ -33,8 +34,12 @@
                 <a class="nav-link" href="/categories">Book Categories</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/authors">Authors</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAuthors" data-toggle="dropdown">Authors</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/authors">All Authors</a>
+                    <a class="dropdown-item" href="/newAuthor">New Author</a>
+                </div>
             </li>
         </ul>
     </nav>

@@ -14,20 +14,28 @@
     <p/>
     <p/>
 
-    <h2>New Author Entry For</h2>
+    <h2>New Author</h2>
     <form action="#">
         <div class="form-group">
-            <label for="fName">First Name:</label>
+            <label for="fName">First Name</label>
             <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="fName">
         </div>
         <div class="form-group">
-            <label for="lName">Last Name:</label>
+            <label for="lName">Last Name</label>
             <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lName">
         </div>
-        <div class="form-group">    <!-- change this to a drop down list -->
-            <label for="nationality">Nationality:</label>
-            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality" name="nationality">
+
+        <div class="form-group dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownNationality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Nationality
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownNationality">
+                <a class="dropdown-item" href="#">US</a>
+                <a class="dropdown-item" href="#">UK</a>
+                <a class="dropdown-item" href="#">France</a>
+            </div>
         </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
