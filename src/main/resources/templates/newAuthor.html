@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bootstrap and Thymeleaf HTML Demo</title>
+    <title>iLMS V1.0</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header" />
 
 <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
+
 
     <!-- the following 3 empty paragraphs are to put some space between the navigation bar and the top of the form -->
     <p/>
@@ -25,23 +26,33 @@
             <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lName">
         </div>
 
-        <div class="form-group dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownNationality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Nationality
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownNationality">
-                <a class="dropdown-item" href="#">US</a>
-                <a class="dropdown-item" href="#">UK</a>
-                <a class="dropdown-item" href="#">France</a>
-            </div>
+        <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <select class="custom-select" id="nationality">
+                    <option selected>Choose...</option>
+                    <option value="1">US</option>
+                    <option value="2">UK</option>
+                    <option value="3">France</option>
+                    <option value="4">Germany</option>
+                    <option value="5">Spain</option>
+                    <option value="6">Egypt</option>
+                </select>
         </div>
+
+
+        <p/>
+        <p/>
+        <p/>
+
+
+
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
+    </div>
 </div>
 
-</div>
+<!--/div-->
 
 <div th:replace="fragments/footer :: footer" />
 

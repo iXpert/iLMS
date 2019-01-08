@@ -14,23 +14,77 @@
     <p/>
     <p/>
 
-        <h2>New Book Entry For</h2>
-        <form action="#">
+
+
+
+        <form id="bs-validate-demo" novalidate>
+
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                <label for="NameDemo1">First Name:</label>
+                <input type="text" class="form-control col-md-3" id="NameDemo1" aria-describedby="nameHelp" placeholder="Enter First Name" required>
+                <div class="invalid-feedback">
+                    Please enter your first name.
+                </div>
             </div>
             <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                <label for="NameDemo2">Last Name:</label>
+                <input type="text" class="form-control col-md-3" id="NameDemo2" aria-describedby="nameHelp" placeholder="Enter Last Name" required>
+                <small id="nameHelp" class="form-text text-muted">Please enter your last name</small>
+                <div class="invalid-feedback">
+                    Last name is also required!
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
-                </label>
+            <div class="form-group">
+                <label for="EmailDemo">Your Email:</label>
+                <input type="email" class="form-control col-md-4" id="EmailDemo" placeholder="Enter email" required>
+                <div class="invalid-feedback">
+                    Please Enter a valid email address!
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="passDemo">Enter Password:</label>
+                <input type="password" class="form-control col-md-2" id="passDemo" aria-describedby="passHelp" placeholder="Password" required>
+                <div class="invalid-feedback">
+                    Enter the correct password!
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="selectDemo">Select Year</label>
+                <select class="form-control" id="selectDemo">
+                    <option>1980</option>
+                    <option>1981</option>
+                    <option>1982</option>
+                    <option>1982</option>
+                    <option>....</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Create My Account</button>
         </form>
+
+    <script>
+        (function() {
+            'use strict';
+
+            window.addEventListener('load', function() {
+                var form = document.getElementById('bs-validate-demo');
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            }, false);
+        })();
+    </script>
+
+
+
+
+
+
 
 
 </div>

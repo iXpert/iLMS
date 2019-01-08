@@ -33,7 +33,7 @@ public class MainController {
 
     @GetMapping(value = "/newAuthor")
     public String showNewAuthor(){
-        return "/newAuthor";
+        return "/newAuthor1";
     }
 
     @GetMapping(value = "/newCategory")
