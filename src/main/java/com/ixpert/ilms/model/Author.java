@@ -20,7 +20,7 @@ public class Author implements Serializable {
 
     @NotNull(message = "Last name is mandatory")
     @Column(name = "LastName")
-    private String lasttName;
+    private String lastName;
 
     @Column(name = "nationality")
     private String nationality;
@@ -41,12 +41,12 @@ public class Author implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLasttName() {
-        return lasttName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLasttName(String lasttName) {
-        this.lasttName = lasttName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getNationality() {
@@ -69,7 +69,7 @@ public class Author implements Serializable {
 
     public Author(String fName, String lName, String nationality){
         this.firstName = fName;
-        this.lasttName = lName;
+        this.lastName = lName;
         this.nationality = nationality;
     }
 
