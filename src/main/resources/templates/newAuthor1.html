@@ -63,7 +63,7 @@
         </div>
         <div class="card-footer">
             <div class="col-lg-9">
-                <button type="button" class="btn btn-dark btnSave">Save</button>
+                <button type="button" class="btn btn-dark btnSave" th:onclick="alert('JJJJJJJ')">Save</button>
                 <button type="button" class="btn btn-dark btnCancel" data-toggle="modal" data-target="#myModal">Cancel</button>
             </div>
 
@@ -91,8 +91,8 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btnModalCancel" data-dismiss="modal">No</button>
-                        <button type="button" class="btn btnModalBack2Home" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-dark btnModalCancel" data-dismiss="modal">No</button> <!-- close Modal form -->
+                        <a class="btn btn-primary btn-dark" th:href="@{home}">Yes</a> <!-- return home -->
                     </div>
                 </div>
 

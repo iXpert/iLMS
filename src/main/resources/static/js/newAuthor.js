@@ -13,15 +13,17 @@ $(document).ready(function () {
         // end of validation check section
 
 
+    // the following section will be triggered when the btnModalBack2Home button is clicked
 
-//        $('.btnCancel').on('click',function (event) {
+        $('.btnModalBack2Home').on('click',function (event) {
 
-  //          alert("Hello");
-            //event.preventDefault();
-           // var href = $(this).attr('href'); // this will return which button was clicked in dialog
-           // $('#myModal #delRef').attr('href',href); // set the href of the button
-      //      $('.modal #centralModalSuccess').modal(); // display the modal dialogue
-    //    });
+            alert('Hi');
+
+            //event.preventDefault(); // to prevent the default action of jquery when the button is clicked
+            //var href = $(this).attr('href'); // this will return which button was clicked in dialog
+            //$('#myModal #delRef').attr('href',href); // set the href of the button
+            //$('#myModal').modal(); // display the modal dialogue
+        });
 
 
 
