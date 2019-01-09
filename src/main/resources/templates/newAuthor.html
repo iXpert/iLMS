@@ -3,6 +3,9 @@
 <head>
     <title>iLMS V1.0</title>
     <div th:replace="fragments/header :: header-css"/>
+
+    <script type="text/javascript" th:src="@{js/newAuthor.js}" src="/static/js/newAuthor.js"></script>
+
 </head>
 <body>
 <div th:replace="fragments/header :: header" />
@@ -11,48 +14,102 @@
 
 
     <!-- the following 3 empty paragraphs are to put some space between the navigation bar and the top of the form -->
+
     <p/>
     <p/>
     <p/>
 
-    <h2>New Author</h2>
-    <form action="#">
-        <div class="form-group">
-            <label for="fName">First Name</label>
-            <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="fName">
+    <div class="card">
+        <form th:action="@{/author/save}" method="post" id="newAuthorForm">
+            <div class="card-header">
+                <h4>New Author</h4>
+            </div>
+            <div class="card-body">
+
+                <!--form action="#" id="newAuthorForm"-->
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="fName" required>
+                        <div class="invalid-feedback">
+                            First name is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lName" required>
+                        <div class="invalid-feedback">
+                            Last name is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <select class="custom-select" id="nationality">
+                            <option selected>Choose...</option>
+                            <option value="1">US</option>
+                            <option value="2">UK</option>
+                            <option value="3">France</option>
+                            <option value="4">Germany</option>
+                            <option value="5">Spain</option>
+                            <option value="6">Egypt</option>
+                        </select>
+                    </div>
+
+
+                    <p/>
+                    <p/>
+                    <p/>
+
+
+
+                <!--/form-->
+            </div>
+            <div class="card-footer">
+                <div class="col-lg-9">
+
+                    <!--button type="button" class="btn btn-dark btn-save" th:onclick="'window.location.href = \'' +@{/author/save}+ '\''">Save</button-->
+                    <input type="submit" class="btn btn-dark" value="Save"/>
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Cancel</button>
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </div>
+</div>
+</div>
+
+
+<!-- the following is the modal form which will be displayed when the close button is clicked -->
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Author data not saved!</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-danger">
+                    Changes are not saved! Back to homepage?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark btnModalCancel" data-dismiss="modal">No</button> <!-- close Modal form -->
+                <a class="btn btn-primary btn-dark" th:href="@{home}">Yes</a> <!-- return home -->
+            </div>
         </div>
-        <div class="form-group">
-            <label for="lName">Last Name</label>
-            <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lName">
-        </div>
-
-        <div class="form-group">
-                <label for="nationality">Nationality</label>
-                <select class="custom-select" id="nationality">
-                    <option selected>Choose...</option>
-                    <option value="1">US</option>
-                    <option value="2">UK</option>
-                    <option value="3">France</option>
-                    <option value="4">Germany</option>
-                    <option value="5">Spain</option>
-                    <option value="6">Egypt</option>
-                </select>
-        </div>
 
 
-        <p/>
-        <p/>
-        <p/>
-
-
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
     </div>
 </div>
 
-<!--/div-->
+
+<!-- end of the modal form -->
 
 <div th:replace="fragments/footer :: footer" />
 
