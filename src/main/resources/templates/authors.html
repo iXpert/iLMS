@@ -9,10 +9,15 @@
 
 <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
 
-
+    <p/>
+    <p/>
+    <p/>
 
         <div class="card">
-            <div class="card-block">
+            <div class="card-header">
+                <h4>All Authors</h4>
+            </div>
+            <div class="card-body">
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -20,10 +25,11 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Nationality</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="author :${allAuthors.content}" >
+                    <tr th:each="author :${allAuthors}" >
                         <td th:text="${author.id}"/>
                         <td th:text="${author.firstName}"/>
                         <td th:text="${author.lastName}"/>
@@ -37,6 +43,7 @@
 
                 </table>
                 <hr/>
+
 
                 <ul class="nav nav-pills">
                     <li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}">

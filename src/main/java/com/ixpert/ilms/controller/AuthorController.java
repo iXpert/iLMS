@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/author")
 public class AuthorController {
@@ -16,25 +18,32 @@ public class AuthorController {
 
 
     @GetMapping
-    public String showAllAuthors(Model model){
-        model.addAttribute("allAuthors",authorService.findAllAuthors());
+    public String showAllAuthors(Model model, @RequestParam(defaultValue = "1") int pageNumber){
+
+        System.out.println("\n ****** Inside AuthorController.showAllAuthors ******");
+
+        List<Author> authors = authorService.getPage(pageNumber);
+        System.out.println("\n ****** # of authors = "+authors.size()+" ******");
+
+        System.out.println("\n ****** Page # is: "+pageNumber+" ******");
+
+
+        model.addAttribute("allAuthors",authors);
+        model.addAttribute("currentPage",pageNumber);
         return "authors";
     }
 
 
     @PostMapping(value = "/save")
     public String saveAuthor(Author author){
-
-        System.out.println("\n ***** inside AuthorController.saveAuthor *****");
-
         authorService.saveAuthor(author);
-        return "redirect:/authors";
+        return "redirect:/author";
     }
 
     @PostMapping(value = "/delete/{id}")
     public String deleteAuthor(@PathVariable("id") Long id){
         authorService.deleteAuthor(id);
-        return "redirect:/authors";
+        return "redirect:/author";
     }
 
 
