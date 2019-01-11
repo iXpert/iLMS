@@ -13,11 +13,6 @@ $(document).ready(function () {
         // end of validation check section
 
 
-
-
-
-
-
-
     });
+
 })

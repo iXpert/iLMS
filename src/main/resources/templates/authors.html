@@ -3,6 +3,10 @@
 <head>
     <title>Bootstrap and Thymeleaf HTML Demo</title>
     <div th:replace="fragments/header :: header-css"/>
+
+    <link th:href="@{css/authors.css}" href="/static/css/authors.css">
+    <script type="text/javascript" th:src="@{js/authors.js}" src="/static/js/authors.js"></script>
+
 </head>
 <body>
 <div th:replace="fragments/header :: header" />
@@ -18,7 +22,7 @@
                 <h4>All Authors</h4>
             </div>
             <div class="card-body">
-                <table class="table table-hover">
+                <table class="table table-hover"><x></x>
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -44,13 +48,45 @@
                 </table>
                 <hr/>
 
+                <!-- start of new pagination implementation -->
+                <div class="row">
+                    <div class="form-group col-md-1">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize :${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
 
-                <ul class="nav nav-pills">
-                    <li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}">
-                        <a  th:href="@{/(page=${i})}"    th:text="${i}" class="nav-link" th:classappend="${currentPage} ==${i}?'active':''"></a>
-                    </li>
-                </ul>
-
+                    <div th:if="${allAuthors.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${allAuthors.number == 0} ? disabled"><a
+                                    class="page-link"
+                                    th:href="@{/author(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${allAuthors.number == 0} ? disabled"><a
+                                    class="page-link"
+                                    th:href="@{/author(pageSize=${selectedPageSize}, page=${allAuthors.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${allAuthors.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                <a class="page-link"
+                                   th:href="@{/author(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${allAuthors.number + 1 == allAuthors.totalPages} ? disabled">
+                                <a class="page-link"
+                                   th:href="@{/author(pageSize=${selectedPageSize}, page=${allAuthors.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${allAuthors.number + 1 == allAuthors.totalPages} ? disabled">
+                                <a class="pageLink"
+                                   th:href="@{/auhor(pageSize=${selectedPageSize}, page=${allAuthors.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end of pagination implementation -->
 
             </div>
 

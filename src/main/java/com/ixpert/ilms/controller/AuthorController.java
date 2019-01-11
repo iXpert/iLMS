@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/author")
+@RequestMapping(value = "/author123")
 public class AuthorController {
 
     @Autowired
