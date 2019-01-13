@@ -5,6 +5,7 @@
         <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="webjars/popper.js/1.14.3/umd/popper.min.js"></script>
         <script type="text/javascript" src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" th:src="@{js/main.js}" src="/static/js/main.js"></script>
     </div>
 </head>
@@ -17,7 +18,8 @@
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/home">Home</a>
+                <!--a class="nav-link" href="/home">Home</a-->
+                <a class="nav-link" th:href="@{home}">Home</a>
             </li>
 
             <!-- Dropdown -->
@@ -26,8 +28,10 @@
                     Books
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/books">All Books</a>
-                    <a class="dropdown-item" href="/newBook">New Book</a>
+                    <!--a class="dropdown-item" href="/books">All Books</a-->
+                    <a class="dropdown-item" th:href="@{books}">All Books</a>
+                    <!--a class="dropdown-item" href="/newBook">New Book</a-->
+                    <a class="dropdown-item" th:href="@{newBook}">New Book</a>
                 </div>
             </li>
 
@@ -38,8 +42,10 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarAuthors" data-toggle="dropdown">Authors</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/author">All Authors</a>
-                    <a class="dropdown-item" href="/newAuthor">New Author</a>
+                    <!--a class="dropdown-item" href="/author">All Authors</a-->
+                    <a class="dropdown-item" th:href="@{author}">All Authors</a>
+                    <!--a class="dropdown-item" href="/author/create">New Author</a-->
+                    <a class="dropdown-item" th:href="@{/author/create}">New Author</a>
                 </div>
             </li>
         </ul>

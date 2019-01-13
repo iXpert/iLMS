@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/author")
+@RequestMapping(value = "/author456")
 public class AuthorController1 {
 
     private static final int BUTTONS_TO_SHOW = 3;

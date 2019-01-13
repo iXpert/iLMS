@@ -9,3 +9,7 @@
 .pointer-disabled {
     pointer-events: none;
 }
+
+a{
+    color: inherit;
+}

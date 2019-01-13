@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap and Thymeleaf HTML Demo</title>
+    <div th:replace="fragments/header :: header-css"/>
+
+    <link th:href="@{css/authors.css}" href="/static/css/authors.css">
+    <script type="text/javascript" th:src="@{js/authors.js}" src="/static/js/authors.js"></script>
+</head>
+<body>
+    <div th:replace="fragments/header :: header" />
+            <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="text-align: center">Authors</h4>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                               <td style="width: 10%"><a class="btn btn-success" id="btnNewAuthor"><i class="fa fa-plus-circle fa-lg" title="New Author"></i> New Author </a></td>
+                                <td><input class="form-control" id="myInput" type="text" placeholder="Search.."></td>
+                            </tr>
+                        </table>
+
+                        <br>
+                        <table class="table table-hover" id="tblAuthors">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Nationality</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody >
+                            <tr th:each="author :${allAuthors}" >
+                                <td th:text="${author.id}"/>
+                                <td th:text="${author.firstName}"/>
+                                <td th:text="${author.lastName}"/>
+                                <td th:text="${author.nationality}"/>
+                                <td>
+                                    <a style="color: inherit" th:href="@{author/find/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-edit" title="Edit"></i></span></a>
+                                    <a style="color: inherit" th:href="@{author/delete/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-remove" title="Delete"></i></span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <hr/>
+
+                        <!-- start of new pagination implementation -->
+                        <ul class="nav nav-pills" style="color: black">
+                            <li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}">
+                                <a  th:href="@{/author(page=${i})}"    th:text="${i}" class="nav-link" th:classappend="${currentPage} ==${i}?'active':''"></a>
+                            </li>
+                        </ul>
+                        <!-- end of pagination implementation -->
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+    <!-- ************ Start of Modal Form ******************-->
+
+    <div class="authorModalForm">
+        <form  th:action="@{/author/save}" method="post">
+            <div class="modal fade" id="authorDataForm" tabindex="-1" role="dialog" aria-labelledby="authorDataFormLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="authorDataFormLabel">Author Data</h5>
+                            <button type="button" class="close btn-dark" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
+                                <div class="invalid-feedback">
+                                    First name is required
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"  required>
+                                <div class="invalid-feedback">
+                                    Last name is required
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nationality">Nationality</label>
+                                <select class="custom-select" id="nationality" name="nationality" >
+                                    <option selected>Choose...</option>
+                                    <option value="US">US</option>
+                                    <option value="UK">UK</option>
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Egypt">Egypt</option>
+                                </select>
+                            </div>
+
+                            <br/>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-lg-9">
+                                <input type="submit" class="btn btn-dark" value="Save"/>
+                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- ************ End of Modal Form ******************-->
+
+    <!-- the following is the dialog form which will be displayed when the close button is clicked -->
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Author data not saved!</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger">
+                        Changes are not saved! Back to homepage?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btnModalCancel" data-dismiss="modal">No</button> <!-- close Modal form -->
+                    <a class="btn btn-primary btn-dark" th:href="@{/author}">Yes</a> <!-- return home -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap and Thymeleaf HTML Demo</title>
+    <div th:replace="fragments/header :: header-css"/>
+
+    <link th:href="@{css/authors.css}" href="/static/css/authors.css">
+    <script type="text/javascript" th:src="@{js/authors.js}" src="/static/js/authors.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header" />
+
+<div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
+
+  <br>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>All Authors</h4>
+        </div>
+        <div class="card-body">
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            <br>
+            <table class="table table-hover" style="table-layout: fixed"  id="tblAuthors">
+                <thead class="thead-dark" style="table-layout: fixed">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Nationality</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="author :${allAuthors}" >
+                    <td th:text="${author.id}"/>
+                    <td th:text="${author.firstName}"/>
+                    <td th:text="${author.lastName}"/>
+                    <td th:text="${author.nationality}"/>
+                    <td>
+                        <a style="color: inherit" th:href="@{author/find/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-edit" title="Edit"></i></span></a>
+                        <a style="color: inherit" th:href="@{author/delete/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-remove" title="Delete"></i></span></a>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+            <hr/>
+
+            <!-- start of new pagination implementation -->
+            <ul class="nav nav-pills">
+                <!--li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}"-->
+                <li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}">
+                    <a  th:href="@{/author(page=${i})}"    th:text="${i}" class="nav-link" th:classappend="${currentPage} ==${i}?'active':''"></a>
+                </li>
+            </ul>
+            <!-- end of pagination implementation -->
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

@@ -29,14 +29,14 @@
                 <!--form action="#" id="newAuthorForm"-->
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" th:value="${author.firstName}" required>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
                         <div class="invalid-feedback">
                             First name is required
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName" th:value="${author.lastName}" required>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName" required>
                         <div class="invalid-feedback">
                             Last name is required
                         </div>
@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         <label for="nationality">Nationality</label>
-                        <select class="custom-select" id="nationality" name="nationality" th:value="${author.nationality}">
+                        <select class="custom-select" id="nationality" name="nationality">
                             <option selected>Choose...</option>
                             <option value="US">US</option>
                             <option value="UK">UK</option>
@@ -55,12 +55,19 @@
                         </select>
                     </div>
 
-                    <br/>
+
+                    <p/>
+                    <p/>
+                    <p/>
+
+
 
                 <!--/form-->
             </div>
             <div class="card-footer">
                 <div class="col-lg-9">
+
+                    <!--button type="button" class="btn btn-dark btn-save" th:onclick="'window.location.href = \'' +@{/author/save}+ '\''">Save</button-->
                     <input type="submit" class="btn btn-dark" value="Save"/>
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Cancel</button>
                 </div>
