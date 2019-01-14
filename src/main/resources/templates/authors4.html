@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bootstrap and Thymeleaf HTML Demo</title>
+    <title>iXpert Technologies LMS v1.0</title>
     <div th:replace="fragments/header :: header-css"/>
 
     <link th:href="@{css/authors.css}" href="/static/css/authors.css">
-    <script type="text/javascript" th:src="@{js/authors.js}" src="/static/js/authors.js"></script>
+    <!--script type="text/javascript" th:src="@{js/authors.js}" src="/static/js/authors.js"></script-->
 </head>
 <body>
     <div th:replace="fragments/header :: header" />
             <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
                 <br>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 style="text-align: center">Authors</h4>
-                    </div>
-                    <div class="card-body">
-                        <table>
+                <div>
+                    <table>
                             <tr>
-                               <td style="width: 10%"><a class="btn btn-success" id="btnNewAuthor"><i class="fa fa-plus-circle fa-lg" title="New Author"></i> New Author </a></td>
+                               <td style="width: 5%"><a class="btn btn-success" id="btnNewAuthor" style="font-size: medium" th:href="@{/author/new}"><i class="fa fa-plus-square fa-lg" title="New Author"></i>New Author</a></td>
                                 <td><input class="form-control" id="myInput" type="text" placeholder="Search.."></td>
                             </tr>
-                        </table>
+                    </table>
 
-                        <br>
-                        <table class="table table-hover" id="tblAuthors">
+                    <br>
+                    <table class="table table-hover" id="tblAuthors">
                             <thead class="thead-dark">
                             <tr>
                                 <th>ID</th>
@@ -47,22 +43,18 @@
                             </tr>
                             </tbody>
 
-                        </table>
-                        <hr/>
+                    </table>
+                    <hr/>
 
                         <!-- start of new pagination implementation -->
-                        <ul class="nav nav-pills" style="color: black">
+                    <ul class="nav nav-pills" style="color: black">
                             <li class="nav-item" th:each="i : ${#numbers.sequence(0,allAuthors.totalPages-1)}">
                                 <a  th:href="@{/author(page=${i})}"    th:text="${i}" class="nav-link" th:classappend="${currentPage} ==${i}?'active':''"></a>
                             </li>
-                        </ul>
+                    </ul>
                         <!-- end of pagination implementation -->
 
-                    </div>
-
                 </div>
-
-
 
             </div>
 

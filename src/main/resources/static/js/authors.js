@@ -11,29 +11,6 @@ $(document).ready(function() {
 
 
 
-   // function koko(){
-   //     alert("kjkhkjhk");
-   // }
-
-
-
-    $("#btnNewAuthor").on('click',function (event) {
-
-        alert("Hello");
-
-       // clear the modal form
-       $('#authorDataForm #firstName').val('');
-       $('#authorDataForm #lastName').val('');
-       $('#authorDataForm #nationality').val('Choose...');
-
-       // display modal form
-        $('#authorDataForm').modal();
-
-    });
-
-
-
-
 
 });
 
