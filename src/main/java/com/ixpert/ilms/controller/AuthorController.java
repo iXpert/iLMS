@@ -1,57 +1,75 @@
 package com.ixpert.ilms.controller;
 
 import com.ixpert.ilms.model.Author;
-import com.ixpert.ilms.service.AuthorService;
+import com.ixpert.ilms.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/author123")
 public class AuthorController {
 
     @Autowired
-    private AuthorService authorService;
-
+    AuthorRepository authorRepository;
 
     @GetMapping
-    public String showAllAuthors(Model model, @RequestParam(defaultValue = "1") int pageNumber){
+    public ModelAndView listAuthors(@RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
 
-        System.out.println("\n ****** Inside AuthorController.showAllAuthors ******");
+        ModelAndView modelAndView = new ModelAndView();
 
-        List<Author> authors = authorService.getPage(pageNumber);
-        System.out.println("\n ****** # of authors = "+authors.size()+" ******");
+        Page<Author> allAuthors = authorRepository.findAll(PageRequest.of(currentPage-1, pageSize));
+        modelAndView.addObject("allAuthors",allAuthors);
 
-        System.out.println("\n ****** Page # is: "+pageNumber+" ******");
+        int totalPages = allAuthors.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbers",pageNumbers);
 
-
-        model.addAttribute("allAuthors",authors);
-        model.addAttribute("currentPage",pageNumber);
-        return "authors";
+        }
+        modelAndView.setViewName("authors");
+        return modelAndView;
     }
 
 
     @PostMapping(value = "/save")
     public String saveAuthor(Author author){
-        authorService.saveAuthor(author);
-        return "redirect:/author";
-    }
-
-    @PostMapping(value = "/delete/{id}")
-    public String deleteAuthor(@PathVariable("id") Long id){
-        authorService.deleteAuthor(id);
+        authorRepository.save(author);
         return "redirect:/author";
     }
 
 
-    @GetMapping(value = "/find/{id}")
-    @ResponseBody
-    public Author findAuthor(@PathVariable("id") Long id){
-        return authorService.findAuthor(id);
+    @GetMapping(value = "/new")
+    public ModelAndView newAuthor(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("newAuthor");
+        return modelAndView;
     }
+
+    @PostMapping(value = "/author/delete/{id}")
+    public ModelAndView deleteAuthor(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        authorRepository.deleteById(id);
+        modelAndView.setViewName("authors");
+        return modelAndView;
+    }
+
+
+
+
+
+
 
 
 }

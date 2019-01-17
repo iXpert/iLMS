@@ -20,49 +20,47 @@
     <p/>
 
     <div class="card">
-        <form th:action="@{/author/save}" method="post" id="newAuthorForm">
-            <div class="card-header">
-                <h4>New Author</h4>
+        <form method="post" id="newAuthorForm" th:action="@{/author/save}">
+            <div class="card-header" style="background-color: lightgrey">
+                <h4><strong>New Author</strong></h4>
             </div>
-            <div class="card-body">
-
-                <!--form action="#" id="newAuthorForm"-->
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
-                        <div class="invalid-feedback">
-                            First name is required
-                        </div>
+            <div class="card-body" style="border-left: black; border-right: black">
+                <div class="form-group">
+                    <label for="firstName"><strong>First Name</strong></label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
+                    <div class="invalid-feedback">
+                        First name is required
                     </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName" required>
-                        <div class="invalid-feedback">
-                            Last name is required
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName"><strong>Last Name</strong></label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName" required>
+                    <div class="invalid-feedback">
+                        Last name is required
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="nationality">Nationality</label>
-                        <select class="custom-select" id="nationality" name="nationality" >
-                            <option selected>Choose...</option>
-                            <option value="US">US</option>
-                            <option value="UK">UK</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="Spain">Spain</option>
-                            <option value="Egypt">Egypt</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="nationality"><strong>Nationality</strong></label>
+                    <select class="custom-select" id="nationality" name="nationality" >
+                        <option selected>Choose...</option>
+                        <option value="US">US</option>
+                        <option value="UK">UK</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Egypt">Egypt</option>
+                    </select>
+                </div>
 
-                    <br/>
+                <br/>
 
                 <!--/form-->
             </div>
-            <div class="card-footer">
+            <div class="card-footer" style="background-color: lightgrey">
                 <div class="col-lg-9">
-                    <input type="submit" class="btn btn-dark" value="Save"/>
-                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Cancel</button>
+                    <button class="btn btn-success" id="btnSaveAuthor"><i class="fa fa-save fa-lg" title="Save Author"></i> <strong>Save</strong></button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#authorNotSavedModal"><i class="fa fa-times-circle fa-lg"></i> <strong>Cancel</strong></button>
                 </div>
 
             </div>
@@ -77,7 +75,7 @@
 
 <!-- the following is the modal form which will be displayed when the close button is clicked -->
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="authorNotSavedModal" role="dialog" tabindex="-1">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -88,12 +86,12 @@
             </div>
             <div class="modal-body">
                 <p class="alert alert-danger">
-                    Changes are not saved! Back to homepage?
+                    Changes are not saved! Exit?
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark btnModalCancel" data-dismiss="modal">No</button> <!-- close Modal form -->
-                <a class="btn btn-primary btn-dark" th:href="@{home}">Yes</a> <!-- return home -->
+                <a class="btn btn-primary btn-dark" th:href="@{/author}">Yes</a> <!-- return to authors page -->
             </div>
         </div>
 
