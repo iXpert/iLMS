@@ -2,46 +2,25 @@ package com.ixpert.ilms.controller;
 
 import com.ixpert.ilms.model.Author;
 import com.ixpert.ilms.repository.AuthorRepository;
+import com.ixpert.ilms.util.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping(value = "/author123")
+@RequestMapping(value = "/author")
 public class AuthorController {
 
     @Autowired
     AuthorRepository authorRepository;
-
-    @GetMapping
-    public ModelAndView listAuthors(@RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Page<Author> allAuthors = authorRepository.findAll(PageRequest.of(currentPage-1, pageSize));
-        modelAndView.addObject("allAuthors",allAuthors);
-
-        int totalPages = allAuthors.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers",pageNumbers);
-
-        }
-        modelAndView.setViewName("authors");
-        return modelAndView;
-    }
-
 
     @PostMapping(value = "/save")
     public String saveAuthor(Author author){
@@ -65,7 +44,24 @@ public class AuthorController {
         return modelAndView;
     }
 
+   @GetMapping
+   public ModelAndView displayAllAuthors(@PageableDefault(value = 15) Pageable pageable){
+       ModelAndView modelAndView = new ModelAndView();
+       Page<Author> authorsPage = authorRepository.findAll(pageable);
+       PageWrapper<Author> page = new PageWrapper(authorsPage,"/author");
+       modelAndView.addObject("allAuthors",authorsPage.getContent());
+       modelAndView.addObject("page",page);
+       modelAndView.setViewName("authors");
+       return modelAndView;
+   }
 
+   @GetMapping(value = "/find/{id}")
+   public ModelAndView find(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        Author currentAuthor = authorRepository.findById(id).get();
+        modelAndView.addObject("currentAuthor",currentAuthor);
+        return modelAndView;
+   }
 
 
 

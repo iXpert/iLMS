@@ -19,7 +19,7 @@
         </table>
 
         <br>
-        <table class="datatable table table-striped table-sm" id="tblAuthors">
+        <table class="datatable table table-striped table-condensed table-sm tblAllAuthors" id="tblAuthors">
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
@@ -29,27 +29,18 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody >
+            <tbody class="bdyAuthorsTable" >
             <tr th:each="author :${allAuthors}" >
-                <td th:text="${author.id}" />
-                <td th:text="${author.firstName}" />
+                <td th:text="${author.id}"/>
+                <td th:text="${author.firstName}"/>
                 <td th:text="${author.lastName}" />
                 <td th:text="${author.nationality}"/>
-                <td style="height: 50%; align-content: center" >
-                    <a style="color: inherit" th:href="@{author/find/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-edit fa-lg" title="Edit"></i></span></a>
-                    <a style="color: inherit" th:href="@{author/delete/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-remove fa-lg" style="color: red" title="Delete"></i></span></a>
+                <td>
+                    <a class="btn btnEditAuthor" style="color: inherit"><span style="font-size:24px"><i class="fa fa-edit" title="Edit"></i></span></a>
+                    <a style="color: inherit" th:href="@{author/delete/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-trash" title="Delete"></i></span></a>
                 </td>
             </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Nationality</th>
-                    <th>Actions</th>
-                </tr>
-            </tfoot>
         </table>
         <hr/>
     </div>
@@ -60,62 +51,86 @@
 
 <div th:replace="fragments/footer :: footer" />
 
-<!-- ************ Start of Modal Form ******************-->
+<!-- ************ Start of Edit Author Modal Form ******************-->
 
-<div class="authorModalForm">
-    <form  th:action="@{/author/save}" method="post">
-        <div class="modal fade" id="authorDataForm" tabindex="-1" role="dialog" aria-labelledby="authorDataFormLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="authorDataFormLabel">Author Data</h5>
-                        <button type="button" class="close btn-dark" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="authorDataModal"  role="dialog" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-width: thick">
+                    <p class="modal-title"><h5><strong><u>Author Data</u></strong></h5></p>
+                        <button type="button" class="close btn-danger btn-sm" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
-                            <div class="invalid-feedback">
-                                First name is required
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"  required>
-                            <div class="invalid-feedback">
-                                Last name is required
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nationality">Nationality</label>
-                            <select class="custom-select" id="nationality" name="nationality" >
-                                <option selected>Choose...</option>
-                                <option value="US">US</option>
-                                <option value="UK">UK</option>
-                                <option value="France">France</option>
-                                <option value="Germany">Germany</option>
-                                <option value="Spain">Spain</option>
-                                <option value="Egypt">Egypt</option>
-                            </select>
-                        </div>
-
-                        <br/>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-lg-9">
-                            <input type="submit" class="btn btn-dark" value="Save"/>
-                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Cancel</button>
-                        </div>
-                    </div>
                 </div>
+                <div class="modal-body">
+                        <form  th:action="@{/author/save}" method="post">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required style="border-width: medium">
+                                <div class="invalid-feedback">
+                                    First name is required
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"  required style="border-width: medium">
+                                <div class="invalid-feedback">
+                                    Last name is required
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nationality">Nationality</label>
+                                <select class="custom-select" id="nationality" name="nationality" style="border-width: medium">
+                                    <option selected>Choose...</option>
+                                    <option value="US">US</option>
+                                    <option value="UK">UK</option>
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Egypt">Egypt</option>
+                                </select >
+                            </div>
+                        </form>
+                        <br/>
+                </div>
+                <div class="modal-footer" style="border-width: thick">
+                        <div class="col-lg-9">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save fa-lg" title="Save Author"></i> Save</button>
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal"><i class="fa fa-times-circle fa-lg"></i> Cancel</button>
+                        </div>
+                    </div>
             </div>
         </div>
-    </form>
-</div>
+    </div>
+
+
+
+<!-- ??????????????????????????????????????????????????????????????????????????? -->
+<!--
+<div class="modal fade" id="DescModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+                <h3 class="modal-title">Job Requirements & Description</h3>
+
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center">Hello. Below is the descripton and/or requirements for hiring consideration.</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " data-dismiss="modal">Apply!</button>
+                <button type="button" class="btn btn-primary">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+   <!-- </div> -->
+    <!-- /.modal-dialog -->
+<!--</div>
+-->
+<!-- ??????????????????????????????????????????????????????????????????????????? -->
 
 <!-- ************ End of Modal Form ******************-->
 
