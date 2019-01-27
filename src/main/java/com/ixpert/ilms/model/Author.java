@@ -11,7 +11,7 @@ public class Author implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotNull(message = "First name is mandatory")
     @Column(name = "FirstName")
@@ -25,11 +25,11 @@ public class Author implements Serializable {
     @Column(name = "nationality")
     private String nationality;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

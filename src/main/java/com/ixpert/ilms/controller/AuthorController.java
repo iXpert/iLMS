@@ -1,16 +1,10 @@
 package com.ixpert.ilms.controller;
 
 import com.ixpert.ilms.model.Author;
-import com.ixpert.ilms.repository.AuthorRepository;
-import com.ixpert.ilms.util.PageWrapper;
+import com.ixpert.ilms.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,52 +14,43 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthorController {
 
     @Autowired
-    AuthorRepository authorRepository;
+    private AuthorService authorService;
 
-    @PostMapping(value = "/save")
-    public String saveAuthor(Author author){
-        authorRepository.save(author);
-        return "redirect:/author";
-    }
-
-
-    @GetMapping(value = "/new")
-    public ModelAndView newAuthor(){
+    @GetMapping
+    public ModelAndView showAllAuthors(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newAuthor");
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/author/delete/{id}")
-    public ModelAndView deleteAuthor(@PathVariable("id") int id){
-        ModelAndView modelAndView = new ModelAndView();
-        authorRepository.deleteById(id);
+        modelAndView.addObject("allAuthors",authorService.getAllAuthors());
         modelAndView.setViewName("authors");
         return modelAndView;
     }
 
-   @GetMapping
-   public ModelAndView displayAllAuthors(@PageableDefault(value = 15) Pageable pageable){
-       ModelAndView modelAndView = new ModelAndView();
-       Page<Author> authorsPage = authorRepository.findAll(pageable);
-       PageWrapper<Author> page = new PageWrapper(authorsPage,"/author");
-       modelAndView.addObject("allAuthors",authorsPage.getContent());
-       modelAndView.addObject("page",page);
-       modelAndView.setViewName("authors");
-       return modelAndView;
-   }
+    @PostMapping(value = "/save")
+    public String save(Author author){
+        System.out.println("\n");
+        System.out.println("\n ------------------------- Inside AuthorController.save -------------------------");
+        System.out.println("\n");
+        authorService.saveAuthor(author);
+        return "redirect:/author";
 
-   @GetMapping(value = "/find/{id}")
-   public ModelAndView find(@PathVariable("id") int id){
+    }
+
+    @GetMapping(value = "/delete")
+    public String delete(Integer id){
+        System.out.println("\n");
+        System.out.println("\n ------------------------- Inside AuthorController.delete -------------------------");
+        System.out.println("\n");
+        authorService.deleteAuthorById(id);
+        return "redirect:/author";
+    }
+
+    @GetMapping(value = "/new")
+    public ModelAndView newAuthor(){
+        System.out.println("\n");
+        System.out.println("\n ------------------------- Inside AuthorController.newAuthor -------------------------");
+        System.out.println("\n");
         ModelAndView modelAndView = new ModelAndView();
-        Author currentAuthor = authorRepository.findById(id).get();
-        modelAndView.addObject("currentAuthor",currentAuthor);
+        modelAndView.setViewName("newAuthor");
         return modelAndView;
-   }
-
-
-
-
-
+    }
 
 }

@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>iXpert Technologies LMS v1.0</title>
-    <div th:replace="fragments/header :: header-css"/>
-    <link th:href="@{css/authors.css}" href="/static/css/authors.css">
-    <script type="text/javascript" th:src="@{js/authors.js}"></script>
-</head>
+    <title>iXpert Technologies Testing1</title>
+    <div th:replace="fragments/header :: header-css"></div>
+    <script type="text/javascript" th:src="@{js/author.js}"></script>
 <body>
-<div th:replace="fragments/header :: header" />
+
+<div th:replace="fragments/header :: header"></div>
 <div class="container" style="height: 80vh;"> <!-- this means the height of the container will be 80% of the Viewer Height -->
     <br>
     <div>
         <table>
             <tr>
-                <td style="width: 5%"><a class="btn btn-success" id="btnNewAuthor" style="font-size: medium" th:href="@{/author/new}"><i class="fa fa-plus-square fa-lg" title="New Author"></i> New Author</a></td>
-                <td><input class="form-control" id="myInput" type="text" placeholder="Search.."></td>
+                <td style="width: 5%"><a class="btn btn-success" id="btnNewAuthor" style="font-size: medium" th:href="@{author/new}"><i class="fa fa-plus-square fa-lg" title="New Author"></i> New Author</a></td>
+                <td><input class="form-control" id="authorSearch" type="text" placeholder="Search.."></td>
             </tr>
         </table>
 
         <br>
-        <table class="datatable table table-striped table-condensed table-sm tblAllAuthors" id="tblAuthors">
-            <thead class="thead-dark">
+        <table class="datatable table table-striped table-condensed tblAllAuthors" id="tblAuthors">
+            <thead class="thead-dark datatable-header">
             <tr>
                 <th>ID</th>
                 <th>First Name</th>
@@ -36,130 +35,98 @@
                 <td th:text="${author.lastName}" />
                 <td th:text="${author.nationality}"/>
                 <td>
-                    <a class="btn btnEditAuthor" style="color: inherit"><span style="font-size:24px"><i class="fa fa-edit" title="Edit"></i></span></a>
-                    <a style="color: inherit" th:href="@{author/delete/(id=${author.id})}"><span style="font-size:24px"><i class="fa fa-trash" title="Delete"></i></span></a>
+                    <a class="btn" id="btnEditAuthor" style="color: inherit"><span style="font-size:24px"><i class="fa fa-edit" title="Edit"></i></span></a>
+                    <a class= "btn" id="btnDeleteAuthor" th:href="@{author/delete/(id=${author.id})}" style="color: inherit" ><span style="font-size:24px"><i class="fa fa-trash" title="Delete"></i></span></a>
                 </td>
             </tr>
             </tbody>
         </table>
         <hr/>
     </div>
-
+    <!-- th:href="@{author/delete/(id=${author.id})}" -->
 </div>
 
 </div>
-
-<div th:replace="fragments/footer :: footer" />
 
 <!-- ************ Start of Edit Author Modal Form ******************-->
-
-    <div class="modal fade" id="authorDataModal"  role="dialog" >
-        <div class="modal-dialog">
+<div class="modal fade" id="authorDataModal"  role="dialog" >
+    <div class="modal-dialog">
+        <form  th:action="@{/author/save}" method="post">
             <div class="modal-content">
                 <div class="modal-header" style="border-width: thick">
                     <p class="modal-title"><h5><strong><u>Author Data</u></strong></h5></p>
-                        <button type="button" class="close btn-danger btn-sm" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <button type="button" class="close btn-danger btn-sm" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                        <form  th:action="@{/author/save}" method="post">
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required style="border-width: medium">
-                                <div class="invalid-feedback">
-                                    First name is required
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"  required style="border-width: medium">
-                                <div class="invalid-feedback">
-                                    Last name is required
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nationality">Nationality</label>
-                                <select class="custom-select" id="nationality" name="nationality" style="border-width: medium">
-                                    <option selected>Choose...</option>
-                                    <option value="US">US</option>
-                                    <option value="UK">UK</option>
-                                    <option value="France">France</option>
-                                    <option value="Germany">Germany</option>
-                                    <option value="Spain">Spain</option>
-                                    <option value="Egypt">Egypt</option>
-                                </select >
-                            </div>
-                        </form>
-                        <br/>
-                </div>
-                <div class="modal-footer" style="border-width: thick">
-                        <div class="col-lg-9">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-save fa-lg" title="Save Author"></i> Save</button>
-                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal"><i class="fa fa-times-circle fa-lg"></i> Cancel</button>
+                    <div class="form-group">
+                        <input type="text" hidden="hidden" id="id" name="id"/>
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required style="border-width: medium">
+                        <div class="invalid-feedback">
+                            First name is required
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"  required style="border-width: medium">
+                        <div class="invalid-feedback">
+                            Last name is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <select class="custom-select" id="nationality" name="nationality" style="border-width: medium">
+                            <option selected>Choose...</option>
+                            <option value="US">US</option>
+                            <option value="UK">UK</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Egypt">Egypt</option>
+                        </select >
+                    </div>
+                    <br/>
+                </div>
+                <div class="modal-footer" style="border-width: thick">
+                    <div class="col-lg-9">
+                        <button type="submit" class="btn btn-success" value="save"><i class="fa fa-save fa-lg" title="Save Author"></i> Save</button>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal"><i class="fa fa-times-circle fa-lg"></i> Cancel</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-
-
-<!-- ??????????????????????????????????????????????????????????????????????????? -->
-<!--
-<div class="modal fade" id="DescModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
-                <h3 class="modal-title">Job Requirements & Description</h3>
-
-            </div>
-            <div class="modal-body">
-                <h5 class="text-center">Hello. Below is the descripton and/or requirements for hiring consideration.</h5>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default " data-dismiss="modal">Apply!</button>
-                <button type="button" class="btn btn-primary">Close</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-   <!-- </div> -->
-    <!-- /.modal-dialog -->
-<!--</div>
--->
-<!-- ??????????????????????????????????????????????????????????????????????????? -->
-
-<!-- ************ End of Modal Form ******************-->
-
-<!-- the following is the dialog form which will be displayed when the close button is clicked -->
-
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Author data not saved!</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p class="alert alert-danger">
-                    Changes are not saved! Back to homepage?
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark btnModalCancel" data-dismiss="modal">No</button> <!-- close Modal form -->
-                <a class="btn btn-primary btn-dark" th:href="@{/author}">Yes</a> <!-- return home -->
-            </div>
-        </div>
-
-
+        </form>
     </div>
 </div>
+<!-- ************ End of Modal Form ******************-->
 
 
+
+<!-- ************ Start of Delete Confirmation Modal Form *********** -->
+<div class="modal fade" id="authorDeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Author Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" >&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-danger">Are you sure you want to delete this Author?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-dark" id="btnAuthorDeleteModal"><i class="fa fa-trash"> Delete</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ************ End of Delete Confirmation Modal Form ************* -->
+
+
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
